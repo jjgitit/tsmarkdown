@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState, FormEvent } from "react";
 import { Row, Col, Form, Stack, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Creatable, { useCreatable } from "react-select/creatable";
+import Creatable from "react-select/creatable";
 import { NoteData, Tag, Note } from "./App";
 
 type NoteFormProps = {
@@ -35,7 +35,19 @@ export function NoteForm({ onSubmit }: NoteFormProps) {
           <Col>
             <Form.Group controlId="tags">
               <Form.Label>Tags</Form.Label>
-              <Creatable isMulti />
+              <Creatable
+                value={selectedTags.map((tag) => {
+                  return { label: tag.label, value: tag.id };
+                })}
+                onChange={(tags) => {
+                  setselectedTags(
+                    tags.map((tag) => {
+                      return { label: tag.label, id: tag.value };
+                    }),
+                  );
+                }}
+                isMulti
+              />
             </Form.Group>
           </Col>
         </Row>
