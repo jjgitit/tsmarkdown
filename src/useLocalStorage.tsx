@@ -5,7 +5,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
     const jsonValue = localStorage.getItem(key);
     if (jsonValue == null) {
       if (typeof initialValue === "function") {
-        return (initialValue as () => T)();
+        return (initialValue as () => T)(); //video 24:30, if i don't do this way, ts doesn't know
       } else {
         return initialValue;
       }
